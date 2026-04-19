@@ -1,0 +1,69 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-brand-yellow: #EFFF00;
+  --color-brand-green: #CCFF00;
+  --color-dark-bg: #050505;
+  --color-dark-card: #121212;
+  --color-dark-text-dim: #888888;
+  --color-light-bg: #F9F9F9;
+  --color-light-card: #FFFFFF;
+  --color-light-text: #1A1A1A;
+  --color-design-border: rgba(255, 255, 255, 0.1);
+  
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Outfit", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans antialiased selection:bg-brand-yellow selection:text-black;
+    background-color: var(--color-dark-bg);
+    color: white;
+  }
+}
+
+@layer utilities {
+  .liquid-metal {
+    background: radial-gradient(circle at 50% 50%, rgba(239, 255, 0, 0.03) 0%, transparent 70%);
+    @apply relative overflow-hidden;
+  }
+
+  .hairline-border {
+    border-width: 0.5px;
+    border-color: var(--color-design-border);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px rgba(239, 255, 0, 0.3);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-brand-yellow/20 rounded-full hover:bg-brand-yellow/40 transition-colors;
+}
+
+/* Base transitions */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Remove default transitions for animations */
+.no-transition {
+  transition: none !important;
+}
+
