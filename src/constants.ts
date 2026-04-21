@@ -4,10 +4,11 @@
  */
 
 import { Article, Category } from './types';
+import { GENERATED_ARTICLES } from './data/generatedArticles';
 
 export const CATEGORIES: Category[] = ['Investment', 'GitHub', 'News', 'Minds', 'Research'];
 
-export const MOCK_ARTICLES: Article[] = [
+const FALLBACK_ARTICLES: Article[] = [
   {
     id: '1',
     category: 'Investment',
@@ -98,3 +99,7 @@ export const MOCK_ARTICLES: Article[] = [
     readTime: '5 min'
   }
 ];
+
+export const MOCK_ARTICLES: Article[] = GENERATED_ARTICLES.length > 0
+  ? GENERATED_ARTICLES
+  : FALLBACK_ARTICLES;

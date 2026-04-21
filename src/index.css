@@ -7,9 +7,18 @@
   --color-dark-bg: #050505;
   --color-dark-card: #121212;
   --color-dark-text-dim: #888888;
-  --color-light-bg: #F9F9F9;
-  --color-light-card: #FFFFFF;
-  --color-light-text: #1A1A1A;
+  --color-light-bg: #F3F5F1;
+  --color-light-card: #FCFDF8;
+  --color-light-text: #172019;
+  --color-reading-bg: #F3F5F1;
+  --color-reading-surface: #FCFDF8;
+  --color-reading-panel: #FFFFFF;
+  --color-reading-ink: #172019;
+  --color-reading-muted: #5D675F;
+  --color-reading-border: #D7DED3;
+  --color-reading-accent: #244B3D;
+  --color-reading-accent-soft: #E6EEE7;
+  --color-reading-blue: #344F7A;
   --color-design-border: rgba(255, 255, 255, 0.1);
   
   --font-sans: "Inter", system-ui, sans-serif;
@@ -22,9 +31,9 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply font-sans antialiased selection:bg-brand-yellow selection:text-black;
-    background-color: var(--color-dark-bg);
-    color: white;
+    @apply font-sans antialiased selection:bg-reading-accent-soft selection:text-reading-ink;
+    background-color: var(--color-light-bg);
+    color: var(--color-light-text);
   }
 }
 
@@ -36,7 +45,6 @@
 
   .hairline-border {
     border-width: 0.5px;
-    border-color: var(--color-design-border);
   }
 
   .text-glow {
@@ -54,7 +62,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-brand-yellow/20 rounded-full hover:bg-brand-yellow/40 transition-colors;
+  @apply bg-reading-muted/30 rounded-full hover:bg-reading-muted/55 transition-colors;
 }
 
 /* Base transitions */
@@ -66,4 +74,3 @@
 .no-transition {
   transition: none !important;
 }
-

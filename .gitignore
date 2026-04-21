@@ -1,4 +1,8 @@
 node_modules/
+.npm-cache/
+.pycache/
+data/*.sqlite
+data/backups/
 build/
 dist/
 coverage/

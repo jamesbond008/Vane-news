@@ -8,7 +8,15 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "workflow:import-sources": "python3 scripts/import_rss_sources.py \"/Users/james007/Desktop/新闻工作流/ai新闻工作流制作/AI新闻工作流_RSS源汇总.md\" --db data/vane_news.sqlite",
+    "workflow:cleanup-24h": "python3 scripts/cleanup_old_news.py --db data/vane_news.sqlite --hours 24",
+    "workflow:collect": "python3 scripts/collect_rss_articles.py --db data/vane_news.sqlite",
+    "workflow:screen-sunday": "python3 scripts/screen_sunday_venture.py --db data/vane_news.sqlite --limit 30",
+    "workflow:screen-gemini": "python3 scripts/screen_with_gemini.py --db data/vane_news.sqlite --prompt docs/SUNDAY_VENTURE_FILTER_PROMPT.md --limit-candidates 120 --batch-size 20 --max-selected 12 --min-score 50 --fresh-hours 24",
+    "workflow:export-frontend": "python3 scripts/export_frontend_news.py --db data/vane_news.sqlite --out src/data/generatedArticles.ts",
+    "workflow:refresh": "npm run workflow:import-sources && npm run workflow:export-frontend",
+    "workflow:run": "npm run workflow:cleanup-24h && npm run workflow:import-sources && npm run workflow:collect && npm run workflow:screen-gemini && npm run workflow:export-frontend"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",
