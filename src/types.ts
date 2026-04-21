@@ -15,6 +15,8 @@ export interface Article {
   author: string;
   tags: string[];
   readTime: string;
+  sourceName?: string;
+  sourceUrl?: string;
 }
 
 export interface Entity {

@@ -18,8 +18,8 @@ export function ThemeToggle({ isDark, toggle }: ThemeToggleProps) {
       onClick={toggle}
       className={cn(
         "relative p-2 rounded-full overflow-hidden transition-all duration-500 hover:scale-110 active:scale-95",
-        "bg-white/5 backdrop-blur-sm border hairline-border",
-        isDark ? "border-brand-yellow/20 text-brand-yellow" : "border-black/10 text-black"
+        "backdrop-blur-sm border hairline-border",
+        isDark ? "bg-white/5 border-brand-yellow/20 text-brand-yellow" : "bg-reading-surface border-reading-border text-reading-ink hover:bg-reading-accent-soft"
       )}
       aria-label="Toggle theme"
     >

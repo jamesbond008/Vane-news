@@ -9,15 +9,18 @@ import { cn } from '../lib/utils';
 import { CATEGORIES } from '../constants';
 import { Category } from '../types';
 import { ThemeToggle } from './ThemeToggle';
+import { Database } from 'lucide-react';
 
 interface NavbarProps {
   currentCategory: Category | 'All';
   setCategory: (c: Category | 'All') => void;
+  viewMode: 'feed' | 'database';
+  setViewMode: (mode: 'feed' | 'database') => void;
   isDark: boolean;
   toggleTheme: () => void;
 }
 
-export function Navbar({ currentCategory, setCategory, isDark, toggleTheme }: NavbarProps) {
+export function Navbar({ currentCategory, setCategory, viewMode, setViewMode, isDark, toggleTheme }: NavbarProps) {
   const [time, setTime] = useState('14:02 UTC');
 
   useEffect(() => {
@@ -35,25 +38,31 @@ export function Navbar({ currentCategory, setCategory, isDark, toggleTheme }: Na
       "backdrop-blur-xl border-b hairline-border transition-colors",
       isDark 
         ? "bg-dark-bg/90 border-design-border text-white" 
-        : "bg-light-bg/90 border-black/10 text-black"
+        : "bg-reading-surface/92 border-reading-border text-reading-ink shadow-sm shadow-black/[0.035]"
     )}>
       <div 
-        onClick={() => setCategory('All')}
+        onClick={() => {
+          setViewMode('feed');
+          setCategory('All');
+        }}
         className="cursor-pointer logo font-extrabold text-xl tracking-[4px] uppercase"
       >
-        VA<span className="text-brand-yellow">N</span>E
+        VA<span className={cn(isDark ? "text-brand-yellow" : "text-reading-accent")}>N</span>E
       </div>
 
       <div className="hidden md:flex items-center gap-1">
         {['All', ...CATEGORIES].map((cat) => (
           <button
             key={cat}
-            onClick={() => setCategory(cat as Category | 'All')}
+            onClick={() => {
+              setViewMode('feed');
+              setCategory(cat as Category | 'All');
+            }}
             className={cn(
               "relative px-4 py-1.5 rounded-sm text-[11px] font-mono uppercase tracking-[0.15em] transition-all duration-300",
-              currentCategory === cat 
-                ? (isDark ? "text-brand-yellow" : "text-black")
-                : (isDark ? "text-dark-text-dim hover:text-white" : "text-black/60 hover:text-black")
+              viewMode === 'feed' && currentCategory === cat
+                ? (isDark ? "text-brand-yellow" : "text-reading-ink")
+                : (isDark ? "text-dark-text-dim hover:text-white" : "text-reading-muted hover:text-reading-ink")
             )}
           >
             <span className="relative z-10">{cat}</span>
@@ -61,11 +70,30 @@ export function Navbar({ currentCategory, setCategory, isDark, toggleTheme }: Na
         ))}
       </div>
 
-      <div className="flex items-center gap-6 text-[12px] font-semibold uppercase tracking-[1px] text-dark-text-dim">
+      <div className={cn(
+        "flex items-center gap-6 text-[12px] font-semibold uppercase tracking-[1px]",
+        isDark ? "text-dark-text-dim" : "text-reading-muted"
+      )}>
         <span className="hidden sm:inline">{time}</span>
+        <button
+          type="button"
+          onClick={() => setViewMode(viewMode === 'database' ? 'feed' : 'database')}
+          className={cn(
+            "inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.15em] transition-colors",
+            viewMode === 'database'
+              ? (isDark ? "text-brand-yellow" : "text-reading-ink")
+              : (isDark ? "hover:text-white" : "text-reading-muted hover:text-reading-ink")
+          )}
+        >
+          <Database size={14} />
+          DB
+        </button>
         <span className="hidden sm:inline">Signal: High</span>
-        <div className="flex items-center gap-2 text-brand-yellow">
-          <div className="w-1.5 h-1.5 rounded-full bg-brand-green shadow-[0_0_8px_rgba(204,255,0,0.8)]" />
+        <div className={cn("flex items-center gap-2", isDark ? "text-brand-yellow" : "text-reading-accent")}>
+          <div className={cn(
+            "w-1.5 h-1.5 rounded-full",
+            isDark ? "bg-brand-green shadow-[0_0_8px_rgba(204,255,0,0.8)]" : "bg-reading-accent"
+          )} />
           <span>Live</span>
         </div>
         <ThemeToggle isDark={isDark} toggle={toggleTheme} />

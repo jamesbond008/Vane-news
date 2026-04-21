@@ -30,7 +30,7 @@ export function ArticleCard({ article, onClick, isDark }: ArticleCardProps) {
         "border hairline-border liquid-metal transition-colors",
         isDark 
           ? "bg-dark-card border-design-border hover:border-brand-yellow/30" 
-          : "bg-light-card border-black/5 hover:border-black/20"
+          : "bg-reading-surface border-reading-border hover:border-reading-accent"
       )}
     >
       <div className="flex items-center justify-between mb-6">
@@ -38,44 +38,47 @@ export function ArticleCard({ article, onClick, isDark }: ArticleCardProps) {
           "text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-sm border hairline-border",
           isDark 
             ? "bg-brand-yellow/10 border-brand-yellow/30 text-brand-yellow" 
-            : "bg-black/5 border-black/10 text-black"
+            : "bg-reading-accent-soft border-reading-border text-reading-accent"
         )}>
           {article.category}
         </span>
         <span className={cn(
           "text-[10px] font-mono",
-          isDark ? "text-dark-text-dim" : "text-black/40"
+          isDark ? "text-dark-text-dim" : "text-reading-muted"
         )}>
           {article.date}
         </span>
       </div>
 
       <h3 className={cn(
-        "text-xl font-display font-semibold mb-4 leading-tight transition-colors group-hover:text-brand-yellow/90 tracking-tight",
-        isDark ? "text-white" : "text-black"
+        "text-xl font-display font-semibold mb-4 leading-tight transition-colors tracking-tight",
+        isDark ? "text-white group-hover:text-brand-yellow/90" : "text-reading-ink group-hover:text-reading-accent"
       )}>
         {article.title}
       </h3>
 
       <p className={cn(
         "text-sm font-sans line-clamp-2 mb-8 opacity-60 leading-relaxed font-light",
-        isDark ? "text-dark-text-dim" : "text-black/60"
+        isDark ? "text-dark-text-dim" : "text-reading-muted"
       )}>
         {article.excerpt}
       </p>
 
-      <div className="flex items-center justify-between pt-4 border-t hairline-border border-design-border">
+      <div className={cn(
+        "flex items-center justify-between pt-4 border-t hairline-border",
+        isDark ? "border-design-border" : "border-reading-border"
+      )}>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5 opacity-60">
-            <Clock size={12} className="text-brand-yellow" />
-            <span className="text-[10px] font-mono text-dark-text-dim">{article.readTime}</span>
+            <Clock size={12} className={cn(isDark ? "text-brand-yellow" : "text-reading-muted")} />
+            <span className={cn("text-[10px] font-mono", isDark ? "text-dark-text-dim" : "text-reading-muted")}>{article.readTime}</span>
           </div>
         </div>
         
         <motion.div 
           className={cn(
             "p-2 rounded-full",
-            isDark ? "text-brand-yellow" : "text-black"
+            isDark ? "text-brand-yellow" : "text-reading-accent"
           )}
           whileHover={{ x: 4 }}
         >
